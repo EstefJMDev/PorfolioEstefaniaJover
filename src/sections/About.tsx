@@ -90,7 +90,7 @@ export function About() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:col-span-1"
           >
-            <PixelFrame className="h-full">
+            <PixelFrame>
               <div className="relative overflow-hidden rounded-lg">
                 <img
                   src={profilePhotoSrc}
