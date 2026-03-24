@@ -6,10 +6,16 @@ import { inspectAttr } from 'kimi-plugin-inspect-react'
 // https://vite.dev/config/
 export default defineConfig({
   base: '/PorfolioEstefaniaJover/',
+  root: './src',
+  publicDir: '../public',
   plugins: [{ ...inspectAttr(), apply: 'serve' }, react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  build: {
+    outDir: '../dist',
+    emptyOutDir: true,
   },
 });
