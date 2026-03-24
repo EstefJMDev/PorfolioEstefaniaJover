@@ -5,25 +5,26 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { PROFILE_LINKS } from '@/lib/site-config';
 
 const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
     value: 'estefaniajm94@outlook.com',
-    href: 'mailto:estefaniajm94@outlook.com',
+    href: PROFILE_LINKS.email,
   },
   {
     icon: MapPin,
     label: 'Ubicación',
     value: 'Murcia, España',
-    href: '#',
+    href: PROFILE_LINKS.locationMap,
   },
 ];
 
 const socialLinks = [
-  { icon: Github, href: 'https://github.com/EstefJMDev', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://www.linkedin.com/in/estefan%C3%ADa-j-261a70334/', label: 'LinkedIn' },
+  { icon: Github, href: PROFILE_LINKS.github, label: 'GitHub' },
+  { icon: Linkedin, href: PROFILE_LINKS.linkedin, label: 'LinkedIn' },
 ];
 
 export function Contact() {
@@ -128,6 +129,8 @@ export function Contact() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={social.label}
+                    title={social.label}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}

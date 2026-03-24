@@ -3,11 +3,13 @@ import { ArrowDown, Github, Linkedin, Mail, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PixelAvatar } from '@/components/PixelAvatar';
 import { PixelHeart, PixelStar, PixelCode } from '@/components/PixelDecorations';
+import { PROFILE_LINKS } from '@/lib/site-config';
+import { scrollToHashSection } from '@/lib/scroll';
 
 const socialLinks = [
-  { icon: Github, href: 'https://github.com/EstefJMDev', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://www.linkedin.com/in/estefan%C3%ADa-j-261a70334/', label: 'LinkedIn' },
-  { icon: Mail, href: 'mailto:estefaniajm94@outlook.com', label: 'Email' },
+  { icon: Github, href: PROFILE_LINKS.github, label: 'GitHub' },
+  { icon: Linkedin, href: PROFILE_LINKS.linkedin, label: 'LinkedIn' },
+  { icon: Mail, href: PROFILE_LINKS.email, label: 'Correo electrónico' },
 ];
 
 const codeSnippets = [
@@ -19,13 +21,6 @@ const codeSnippets = [
 ];
 
 export function Hero() {
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <section
       id="hero"
@@ -127,7 +122,7 @@ export function Hero() {
             >
               <Button
                 size="lg"
-                onClick={() => scrollToSection('#projects')}
+                onClick={() => scrollToHashSection('#projects')}
                 className="bg-gradient-to-r from-pixel-blue to-pixel-purple hover:shadow-lg hover:shadow-pixel-blue/30 transition-shadow rounded-full px-8"
               >
                 Ver Proyectos
@@ -162,6 +157,8 @@ export function Hero() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={social.label}
+                  title={social.label}
                   className="w-12 h-12 rounded-xl bg-slate-800/50 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-pixel-blue/50 hover:bg-pixel-blue-10 transition-all"
                   whileHover={{ scale: 1.1, y: -4 }}
                   whileTap={{ scale: 0.95 }}

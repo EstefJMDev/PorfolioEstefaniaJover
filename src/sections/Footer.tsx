@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Code2, Heart, ArrowUp } from 'lucide-react';
+import { scrollToHashSection } from '@/lib/scroll';
 
 const footerLinks = [
   {
@@ -15,18 +16,18 @@ const footerLinks = [
   {
     title: 'Servicios',
     links: [
-      { label: 'Desarrollo Móvil', href: '#' },
-      { label: 'Desarrollo Web', href: '#' },
-      { label: 'Consultoría', href: '#' },
-      { label: 'UI/UX Design', href: '#' },
+      { label: 'Desarrollo Móvil', href: '#contact' },
+      { label: 'Desarrollo Web', href: '#contact' },
+      { label: 'Consultoría', href: '#contact' },
+      { label: 'UI/UX Design', href: '#contact' },
     ],
   },
   {
     title: 'Legal',
     links: [
-      { label: 'Privacidad', href: '#' },
-      { label: 'Términos', href: '#' },
-      { label: 'Cookies', href: '#' },
+      { label: 'Privacidad', href: '/legal/privacidad.html' },
+      { label: 'Términos', href: '/legal/terminos.html' },
+      { label: 'Cookies', href: '/legal/cookies.html' },
     ],
   },
 ];
@@ -38,10 +39,7 @@ export function Footer() {
 
   const scrollToSection = (href: string) => {
     if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+      scrollToHashSection(href);
     }
   };
 

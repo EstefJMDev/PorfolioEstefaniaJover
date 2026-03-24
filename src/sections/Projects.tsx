@@ -13,7 +13,7 @@ const projects = [
     progress: 65,
     tags: ['React Native', 'Node.js', 'PostgreSQL', 'Firebase'],
     features: ['Gestión de equipos', 'Tareas diarias', 'Reportes fotográficos', 'Sincronización offline'],
-    repoUrl: '#',
+    repoUrl: null,
     color: 'from-[#5174FF] to-[#9B7BFF]',
     icon: Construction,
   },
@@ -26,7 +26,7 @@ const projects = [
     progress: 40,
     tags: ['Flutter', 'Python', 'TensorFlow', 'AWS'],
     features: ['Análisis de URLs', 'Detección ML', 'Alertas en tiempo real', 'Base de datos de amenazas'],
-    repoUrl: '#',
+    repoUrl: null,
     color: 'from-[#7FFFD4] to-[#5174FF]',
     icon: Shield,
   },
@@ -177,13 +177,22 @@ export function Projects() {
                   </div>
 
                   {/* Action Button */}
-                  <a
-                    href={project.repoUrl}
-                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-[#5174FF]/50 hover:bg-[#5174FF]/10 transition-all text-sm font-medium text-slate-300 hover:text-white"
-                  >
-                    <Github className="w-4 h-4" />
-                    Ver en GitHub
-                  </a>
+                  {project.repoUrl ? (
+                    <a
+                      href={project.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-[#5174FF]/50 hover:bg-[#5174FF]/10 transition-all text-sm font-medium text-slate-300 hover:text-white"
+                    >
+                      <Github className="w-4 h-4" />
+                      Ver en GitHub
+                    </a>
+                  ) : (
+                    <div className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-slate-800/30 border border-slate-800 text-sm font-medium text-slate-500 cursor-not-allowed select-none">
+                      <Github className="w-4 h-4" />
+                      Repositorio próximamente
+                    </div>
+                  )}
                 </div>
 
                 {/* Glow Effect */}

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { PixelHome, PixelUser, PixelFolder, PixelTools, PixelMail, PixelCodeIcon } from './PixelIcons';
+import { scrollToHashSection } from '@/lib/scroll';
 
 const navItems = [
   { label: 'Inicio', href: '#hero', icon: PixelHome, color: '#5174FF' },
@@ -24,11 +25,7 @@ export function Navigation() {
   }, []);
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMobileMenuOpen(false);
+    scrollToHashSection(href, () => setIsMobileMenuOpen(false));
   };
 
   return (
