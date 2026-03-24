@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, MapPin, Send, Github, Linkedin, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Send, Github, Linkedin, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -31,6 +32,8 @@ export function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -38,13 +41,29 @@ export function Contact() {
     message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
+    setIsSending(true);
+    setError(null);
+    try {
+      await emailjs.send(
+        'service_tiuamvb',
+        'template_mgpppny',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        '5h4BBoI7pI78gOZ7-'
+      );
+      setIsSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 3000);
+    } catch {
+      setError('No se pudo enviar el mensaje. Inténtalo de nuevo.');
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -257,13 +276,24 @@ export function Contact() {
                       />
                     </div>
 
+                    {error && (
+                      <div className="flex items-center gap-2 text-red-400 text-sm p-3 rounded-lg bg-red-400/10 border border-red-400/20">
+                        <AlertCircle className="w-4 h-4 shrink-0" />
+                        {error}
+                      </div>
+                    )}
                     <Button
                       type="submit"
+                      disabled={isSending}
                       size="lg"
-                      className="w-full bg-gradient-to-r from-[#5174FF] to-[#9B7BFF] hover:shadow-lg hover:shadow-[#5174FF]/30 transition-shadow rounded-xl"
+                      className="w-full bg-gradient-to-r from-[#5174FF] to-[#9B7BFF] hover:shadow-lg hover:shadow-[#5174FF]/30 transition-shadow rounded-xl disabled:opacity-60"
                     >
-                      <Send className="mr-2 w-4 h-4" />
-                      Enviar Mensaje
+                      {isSending ? (
+                        <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                      ) : (
+                        <Send className="mr-2 w-4 h-4" />
+                      )}
+                      {isSending ? 'Enviando...' : 'Enviar Mensaje'}
                     </Button>
                   </form>
                 )}
