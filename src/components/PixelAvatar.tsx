@@ -36,7 +36,7 @@ export function PixelAvatar({ size = 200, className = '' }: PixelAvatarProps) {
         
         {/* Pixel avatar image */}
         <img
-          src="/pixel-avatar.jpg"
+          src="./pixel-avatar.jpg"
           alt="Pixel Avatar"
           className="relative z-10 w-full h-full object-contain drop-shadow-2xl"
           style={{ imageRendering: 'pixelated' }}

@@ -130,7 +130,7 @@ export function Hero() {
               </Button>
 
               <a
-                href="/cv-estefania-jover-martinez.pdf"
+                href="./cv-estefania-jover-martinez.pdf"
                 download
                 className="inline-flex"
               >

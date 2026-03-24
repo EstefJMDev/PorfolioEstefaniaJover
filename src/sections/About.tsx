@@ -92,7 +92,7 @@ export function About() {
             <PixelFrame className="h-full">
               <div className="relative overflow-hidden rounded-lg">
                 <img
-                  src="/profile-photo.jpg"
+                  src="./profile-photo.jpg"
                   alt="Estefanía Jover"
                   className="w-full h-80 object-cover object-top"
                 />
