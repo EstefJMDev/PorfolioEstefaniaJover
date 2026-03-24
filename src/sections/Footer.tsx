@@ -25,9 +25,9 @@ const footerLinks = [
   {
     title: 'Legal',
     links: [
-      { label: 'Privacidad', href: '/legal/privacidad.html' },
-      { label: 'Términos', href: '/legal/terminos.html' },
-      { label: 'Cookies', href: '/legal/cookies.html' },
+      { label: 'Privacidad', href: '/PorfolioEstefaniaJover/legal/privacidad.html' },
+      { label: 'Términos', href: '/PorfolioEstefaniaJover/legal/terminos.html' },
+      { label: 'Cookies', href: '/PorfolioEstefaniaJover/legal/cookies.html' },
     ],
   },
 ];
