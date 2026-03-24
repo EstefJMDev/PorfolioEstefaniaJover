@@ -2,6 +2,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Sparkles, Zap, Target, Users, Gamepad2 } from 'lucide-react';
 import { PixelHeart, PixelStar, PixelFrame } from '@/components/PixelDecorations';
+import profilePhotoSrc from '@/assets/profile-photo.jpg';
 
 const stats = [
   { value: 'DAM', label: 'En Formación', icon: Sparkles },
@@ -92,7 +93,7 @@ export function About() {
             <PixelFrame className="h-full">
               <div className="relative overflow-hidden rounded-lg">
                 <img
-                  src="./profile-photo.jpg"
+                  src={profilePhotoSrc}
                   alt="Estefanía Jover"
                   className="w-full h-80 object-cover object-top"
                 />

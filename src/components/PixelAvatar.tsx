@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import pixelAvatarSrc from '@/assets/pixel-avatar.jpg';
 
 interface PixelAvatarProps {
   size?: number;
@@ -36,7 +37,7 @@ export function PixelAvatar({ size = 200, className = '' }: PixelAvatarProps) {
         
         {/* Pixel avatar image */}
         <img
-          src="./pixel-avatar.jpg"
+          src={pixelAvatarSrc}
           alt="Pixel Avatar"
           className="relative z-10 w-full h-full object-contain drop-shadow-2xl"
           style={{ imageRendering: 'pixelated' }}
