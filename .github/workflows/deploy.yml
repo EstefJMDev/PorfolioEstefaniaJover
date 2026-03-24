@@ -8,16 +8,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    # Skip if this is already a deploy commit to avoid loops
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     permissions:
-      contents: read
-      pages: write
-      id-token: write
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -30,14 +29,24 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - name: Copy built files to repo root
+        run: |
+          # Remove old built assets to avoid stale hashed files
+          rm -rf ./assets
+          # Copy built output to repo root so GitHub Pages serves it directly
+          cp -r dist/assets ./assets
+          cp dist/index.html ./index.html
+          # Sync public files (cv, photos, legal pages)
+          rsync -a --exclude='assets' --exclude='index.html' dist/ ./
+          # Prevent Jekyll from processing the site
+          touch .nojekyll
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'dist'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Commit and push built files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/ .nojekyll
+          git add legal/ cv-estefania-jover-martinez.pdf pixel-avatar.jpg pixel-avatar.png profile-photo.jpg 2>/dev/null || true
+          git diff --staged --quiet && echo "No changes to commit" && exit 0
+          git commit -m "chore: deploy built files [skip ci]"
+          git push
